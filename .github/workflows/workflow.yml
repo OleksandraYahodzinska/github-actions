@@ -23,13 +23,14 @@ jobs:
 
       - name: Run tests
         run: |
-          pytest --cov=myapp --cov-fail-under=70 --cov-report=xml > coverage_report.txt
+          pytest --cov=myapp --cov-fail-under=70 --cov-report=term --cov-report=xml:coverage.xml
 
       - name: Upload coverage report
         uses: actions/upload-artifact@v4
+        if: always()
         with:
           name: coverage-report
-          path: coverage_report.txt
+          path: coverage.xml
 
   build:
     needs: test
